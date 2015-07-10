@@ -36,8 +36,9 @@ struct Deque_Fixture : Test {
     typedef typename deque_type::value_type value_type;};
 
 typedef Types<
-               deque<int>,
-            my_deque<int>>
+               deque<int>
+               //, my_deque<int>
+               >
         deque_types;
 
 TYPED_TEST_CASE(Deque_Fixture, deque_types);
@@ -47,6 +48,14 @@ TYPED_TEST_CASE(Deque_Fixture, deque_types);
 // -----
 
 TYPED_TEST(Deque_Fixture, test_1) {
+    typedef typename TestFixture::deque_type deque_type;
+
+    const deque_type x;
+    ASSERT_TRUE(x.empty());
+    ASSERT_EQ(x.size(),0);}
+
+
+TYPED_TEST(Deque_Fixture, test_2) {
     typedef typename TestFixture::deque_type deque_type;
 
     const deque_type x;
