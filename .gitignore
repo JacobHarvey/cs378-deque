@@ -1,0 +1,7 @@
+*.gcda
+*.gcno
+*.gcov
+RunInteger
+TestInteger
+.*.swp
+.nfs*
