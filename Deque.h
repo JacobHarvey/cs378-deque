@@ -597,8 +597,10 @@ class my_deque {
             if(index < AWIDTH-_offset){
                 dummy = _top[_b][(index+_offset)%AWIDTH];
             }
-            index -= AWIDTH-_offset;
-            dummy = _top[_b+1+index/AWIDTH][index%AWIDTH];
+            else{
+                index -= AWIDTH-_offset;
+                dummy = _top[_b+1+index/AWIDTH][index%AWIDTH];
+            }
             return dummy;}
 
         /**
@@ -615,10 +617,9 @@ class my_deque {
          * <your documentation>
          */
         reference at (size_type index) {
-            // <your code>
+            // 
             // dummy is just to be able to compile the skeleton, remove it
-            static value_type dummy;
-            return dummy;}
+            return this->operator[](index);}
 
         /**
          * <your documentation>
