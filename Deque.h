@@ -19,7 +19,7 @@
 #include <utility>   // !=, <=, >, >=
 
 
-#define AWIDTH 20
+#define AWIDTH 25
 
 
 // -----
@@ -607,7 +607,7 @@ class my_deque {
             }
             else{
                 index -= AWIDTH-_offset;
-                dummy = _top[_b+1+index/AWIDTH][index%AWIDTH];
+                dummy = _top[_b+1+(index/AWIDTH)][index%AWIDTH];
             }
             return dummy;}
 
