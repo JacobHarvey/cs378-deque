@@ -139,7 +139,7 @@ class my_deque {
         size_type _e; //end of size
         size_type _b; // begining
         //pointer_l; //for capacity of current
-        difference_type _top_size;
+        size_type _top_size;
         difference_type _offset;
         size_type _size;
         
@@ -573,6 +573,10 @@ class my_deque {
          */
         ~my_deque () {
             //call _a.destroy(); and then deallocate each array, then deallocate outside array
+            destroy (_a, begin(), end());
+            for (difference_type i = _b; i <=_e; i++)
+                _a.deallocate(_top[i], AWIDTH);
+            _outter.deallocate (_top, _top_size);
             assert(valid());}
 
         // ----------
