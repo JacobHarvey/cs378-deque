@@ -18,6 +18,10 @@
 #include <stdexcept> // out_of_range
 #include <utility>   // !=, <=, >, >=
 
+
+#define AWIDTH 20
+
+
 // -----
 // using
 // -----
@@ -74,7 +78,6 @@ BI uninitialized_fill (A& a, BI b, BI e, const U& v) {
 // -------
 // my_deque
 // -------
-
 template < typename T, typename A = std::allocator<T> >
 class my_deque {
     public:
@@ -82,19 +85,21 @@ class my_deque {
         // typedefs
         // --------
 
-        typedef A                                        allocator_type;
-        typedef typename allocator_type::value_type      value_type;
+        typedef A                                               allocator_type; // inner?
+        typedef typename allocator_type::value_type             value_type;
 
-        typedef typename allocator_type::size_type       size_type;
-        typedef typename allocator_type::difference_type difference_type;
+        typedef typename allocator_type::size_type              size_type;
+        typedef typename allocator_type::difference_type        difference_type;
 
-        typedef typename allocator_type::pointer         pointer;
-        typedef typename allocator_type::const_pointer   const_pointer;
+        typedef typename allocator_type::pointer                pointer;
+        typedef typename allocator_type::const_pointer          const_pointer;
 
-        typedef typename allocator_type::reference       reference;
-        typedef typename allocator_type::const_reference const_reference;
+        typedef typename allocator_type::reference              reference;
+        typedef typename allocator_type::const_reference        const_reference;
 
-        typename A::template rebind<pointer>::other      B;
+        typedef typename A::template rebind<pointer>::other      B; //outer array
+        typedef typename B::pointer                              b_pointer;
+
 
     public:
         // -----------
@@ -105,7 +110,9 @@ class my_deque {
          * <your documentation>
          */
         friend bool operator == (const my_deque& lhs, const my_deque& rhs) {
-            // <your code>
+            typename my_deque::iterator b1 = lhs.begin();// <your code>
+            typename my_deque::iterator b2 = rhs.begin();// <your code>
+            typename my_deque::iterator e = lhs.end();// <your code>
             // you must use std::equal()
             return true;}
 
@@ -125,9 +132,17 @@ class my_deque {
         // ----
         // data
         // ----
-
-        allocator_type _a;
-
+        //AWIDTH for inner array size
+        allocator_type _a; // allocator for inner arrays
+        B _outter; //allocator for outer array?
+        b_pointer _top; //points to first container
+        size_type _e; //end of size
+        size_type _b; // begining
+        //pointer_l; //for capacity of current
+        difference_type _top_size;
+        difference_type _offset;
+        size_type _size;
+        
         // <your data>
 
     private:
@@ -138,7 +153,8 @@ class my_deque {
         bool valid () const {
             // <your code>
             return true;}
-
+        pointer get_last(){
+            return _e[((_size)-(AWIDTH-_offset))%AWIDTH];}
     public:
         // --------
         // iterator
@@ -501,15 +517,40 @@ class my_deque {
         /**
          * <your documentation>
          */
-        explicit my_deque (const allocator_type& a = allocator_type()) {
-            // <your code>
+        explicit my_deque (const allocator_type& a = allocator_type()):_a(a) {
+            
             assert(valid());}
 
         /**
          * <your documentation>
+         *  allocator_type _a; // allocator for inner arrays
+        B _b; //allocator for outer array?
+        b_pointer _top; //points to first container
+        pointer _e; //end of size
+        pointer _b; // begining
+        //pointer_l; //for capacity of current
+        difference_type _top_size;
+        difference_type offset;
+        size_type size;
+
          */
-        explicit my_deque (size_type s, const_reference v = value_type(), const allocator_type& a = allocator_type()) {
-            // <your code>
+        explicit my_deque (size_type s, const_reference v = value_type(), const allocator_type& a = allocator_type()): _a(a) {
+            _top = _outter.allocate(s/AWIDTH * 2 + 1);
+            _top_size = s/AWIDTH * 2 + 1;
+            _top[1]=_a.allocate(AWIDTH);
+            _b = 1;
+            //allocate all the needed inner arrays
+            int i = 0;
+            for (i=1; i< s/ AWIDTH; i++){
+                _top[i+1] = _a.allocate(AWIDTH);
+            }
+            _e = i;
+            //set variables
+            _size=s;
+            _offset=0;
+
+            //do the copy stuff
+            uninitialized_fill(_a, begin(), end(), v);
             assert(valid());}
 
         /**
@@ -527,7 +568,7 @@ class my_deque {
          * <your documentation>
          */
         ~my_deque () {
-            // <your code>
+            //call _a.destroy(); and then deallocate each array, then deallocate outside array
             assert(valid());}
 
         // ----------
@@ -553,6 +594,11 @@ class my_deque {
             // <your code>
             // dummy is just to be able to compile the skeleton, remove it
             static value_type dummy;
+            if(index < AWIDTH-_offset){
+                dummy = _top[_b][(index+_offset)%AWIDTH];
+            }
+            index -= AWIDTH-_offset;
+            dummy = _top[_b+1+index/AWIDTH][index%AWIDTH];
             return dummy;}
 
         /**
@@ -755,7 +801,7 @@ class my_deque {
          */
         size_type size () const {
             // <your code>
-            return 0;}
+            return _size;}
 
         // ----
         // swap

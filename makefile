@@ -63,7 +63,7 @@ sync:
 
 test: TestDeque.out
 
-html: Doxyfile Deque.h TestInteger.c++
+html: Doxyfile Deque.h TestDeque.c++
 		doxygen Doxyfile
 
 Deque.log:
@@ -96,10 +96,10 @@ endif
 	@echo
 	doxygen --version
 
-TestDeque: Integer.h TestInteger.c++
-	$(CXX) $(COVFLAGS) $(CXXFLAGS) TestDeque.c++ -o TestInteger $(LDFLAGS)
+TestDeque: Deque.h TestDeque.c++
+	$(CXX) $(COVFLAGS) $(CXXFLAGS) TestDeque.c++ -o TestDeque $(LDFLAGS)
 
-TestDeque.out: TestInteger
-	$(VALGRIND) ./TestDeque  >  TestInteger.out 2>&1
-	$(GCOV) -b TestDeque.c++ >> TestInteger.out
+TestDeque.out: TestDeque
+	$(VALGRIND) ./TestDeque  >  TestDeque.out 2>&1
+	$(GCOV) -b TestDeque.c++ >> TestDeque.out
 	cat TestDeque.out
