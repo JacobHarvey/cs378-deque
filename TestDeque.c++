@@ -74,6 +74,23 @@ TYPED_TEST(Deque_Fixture, test_6) {
     ASSERT_EQ(x.at(99),0);
     ASSERT_EQ(x.at(999),0);}
 
+TYPED_TEST(Deque_Fixture, test_8) {
+    typedef typename TestFixture::deque_type deque_type;
+    deque_type x (1000);
+    ASSERT_EQ(x.size(),1000);
+    ASSERT_EQ(x.at(9),0);
+    ASSERT_EQ(x.at(99),0);
+    ASSERT_EQ(x.at(999),0);}
+
+TYPED_TEST(Deque_Fixture, test_7) {
+    typedef typename TestFixture::deque_type deque_type;
+    deque_type x (1000);
+    ASSERT_EQ(x.size(),1000);
+    typename deque_type::iterator b = x.begin();
+		for (int i = 0; i<999; i++){
+			++b;}
+		ASSERT_EQ(x.at(999),*b);}
+
 // -----
 // Tests
 // -----
