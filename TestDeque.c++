@@ -91,6 +91,26 @@ TYPED_TEST(Deque_Fixture, test_8) {
     ASSERT_EQ(x.at(99),0);
     ASSERT_EQ(x.at(999),0);}
 
+TYPED_TEST(Deque_Fixture, test_middle_element_1) {
+    typedef typename TestFixture::deque_type deque_type;
+    deque_type x (500);
+    ASSERT_EQ(x.size(),500);
+    ASSERT_EQ(x.at(59),0);
+    ASSERT_EQ(x.at(159),0);
+    ASSERT_EQ(x.at(299),0);
+    ASSERT_EQ(x.at(499),0);}
+
+TYPED_TEST(Deque_Fixture, test_middle_element_2) {
+    typedef typename TestFixture::deque_type deque_type;
+    deque_type x (1000);
+    ASSERT_EQ(x.size(),1000);
+    ASSERT_EQ(x.at(9),0);
+    ASSERT_EQ(x.at(25),0);
+    ASSERT_EQ(x.at(38),0);
+    ASSERT_EQ(x.at(67),0);
+    ASSERT_EQ(x.at(400),0);
+    ASSERT_EQ(x.at(999),0);}
+
 TYPED_TEST(Deque_Fixture, test_7) {
     typedef typename TestFixture::deque_type deque_type;
     deque_type x (1000);
