@@ -535,10 +535,12 @@ class my_deque {
             _b = 1;
             //allocate all the needed inner arrays
             int i = 0;
-            for (i=1; i< s/AWIDTH+1; i++){
-                _top[i+1] = _a.allocate(AWIDTH);
-            }
-            _e = i;
+            for (i=1; i<= s/AWIDTH; i++){
+                _top[i+1] = _a.allocate(AWIDTH);}
+            if (s%AWIDTH){
+                _e = i-1;}
+            else{
+                _e = i;}
             //set variables
             _size=s;
             _offset=0;
@@ -602,8 +604,8 @@ class my_deque {
             // <your code>
             // dummy is just to be able to compile the skeleton, remove it
             static value_type dummy;
-            if(index < (AWIDTH-_offset)+1){
-                dummy = _top[_b][(index+_offset)%AWIDTH];
+            if(index < (AWIDTH-_offset)){
+                dummy = _top[_b][(index+_offset)];
             }
             else{
                 index -= (AWIDTH-_offset);
