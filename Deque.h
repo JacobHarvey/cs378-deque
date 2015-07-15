@@ -851,10 +851,10 @@ class my_deque {
             b_pointer new_top = _outter.allocate (_top_size*2);
             size_type temp=_b;
             size_type c;
-            for (c = _b; c<= _e; c++){
+            for (c = 0; c< _top_size; c++){
                 new_top[c+(new_top/4)]= _top[c];
             }
-            _b= _b+(new_top/4);
+            _b= _b + (new_top/4);
             _e= --c;
             _outter.deallocate (_top, _top_size);
             _top = new_top;
