@@ -388,7 +388,7 @@ class my_deque {
                 // data
                 // ----
                 difference_type _index;
-                my_deque& _outter;
+                const my_deque& _outter;
                 // <your data>
 
             private:
@@ -407,7 +407,7 @@ class my_deque {
                 /**
                  * <your documentation>
                  */
-                const_iterator (difference_type index, my_deque& outter): _index(index), _outter(outter) {
+                const_iterator (difference_type index, const my_deque& outter): _index(index), _outter(outter) {
                     assert(valid());}
 
                 // Default copy, destructor, and copy assignment.
@@ -577,7 +577,7 @@ class my_deque {
             assert(valid());}
 
         /**
-         * <your documentation>
+         * Copy Constructor
          */
         my_deque (const my_deque& that):_a(that._a) {
             _top = _outter.allocate(that._top_size);
