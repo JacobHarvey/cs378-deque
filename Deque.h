@@ -422,8 +422,7 @@ class my_deque {
                  * <your documentation>
                  */
                 reference operator * () const { 
-                    static value_type dummy = _outter[_index];
-                    return dummy;}
+                    return _outter[_index];}
 
                 // -----------
                 // operator ->
@@ -557,10 +556,10 @@ class my_deque {
                 _top[i+1] = _a.allocate(AWIDTH);}
             if (s<AWIDTH)
                 _e=_b;
-            else if (s%AWIDTH){
-                _e = i-1;}
+            //else if (s%AWIDTH){
+            //    _e = i-1;}
             else{
-                _e = i-1;}
+                _e = i;}
             //set variables
             _size=s;
             _offset=0;
@@ -623,7 +622,6 @@ class my_deque {
         reference operator [] (size_type index) {
             // <your code>
             // dummy is just to be able to compile the skeleton, remove it
-            static value_type d;
             //std::cout << "offset is " << _offset << std::endl;
             //std::cout << "index is " << index << std::endl;
             if(index < (AWIDTH-_offset)){
@@ -631,18 +629,13 @@ class my_deque {
                 //std::cout << "innner array is _b" << "inner index is " << index+_offset<< std::endl;
                 return dummy;
             }
-            else{
+            
                 if(_offset){
                     index -= AWIDTH-_offset;}
 
                 reference dummy = _top[_b+(index/AWIDTH)][index%AWIDTH];
                 //std::cout << "inner array is " << _b+(index/AWIDTH) << std::endl;
-                return dummy;
-            }
-            
-            std::cout << "[] is fucking up " << index%AWIDTH << std::endl;
-            //std::cout << "dummy val is " << dummy << std::endl;
-            return d;}
+                return dummy;}
 
         /**
          * <your documentation>
