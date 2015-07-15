@@ -548,7 +548,7 @@ class my_deque {
          */
         explicit my_deque (size_type s, const_reference v = value_type(), const allocator_type& a = allocator_type()): _a(a) {
             _top = _outter.allocate((s/AWIDTH + 1)*2);
-            _top_size = (s/AWIDTH + 1)*2;
+            _top_size = (s/AWIDTH + 1)*2; //always even
             _top[0]=_a.allocate(AWIDTH);
             _top[1]=_a.allocate(AWIDTH);
             _b = 1;
@@ -811,21 +811,22 @@ class my_deque {
          */
         void push_back (const_reference val) {
             if (_top_size==_size){
-                resize(++_size);
-
-            }
+                resize(++_size, val);}
             else{
-                pointer cur = &*end();
                 ++_size;
-                _a.construct(cur, _v);
-            }
+                _a.construct(&*end(), val);}
             assert(valid());}
 
         /**
          * <your documentation>
          */
         void push_front (const_reference val) {
-            // <your code>
+            if(_offset == 0 && _b == 0)
+                grow_outter();
+            if(_offset == 0){
+                _offset = AWIDTH-1;
+                --_b;
+                _a.construct(&(_top[_b][_offset]), val);}
             assert(valid());}
 
         // ------
@@ -844,11 +845,26 @@ class my_deque {
             //shrink, get bi direction iterator, deallocate each element, until s, calculate new e, set size, 
             if (s<_size){
                 while (s<_size--){
-                    _a.destroy(&*end());
-                }
-
+                    _a.destroy(&*end());}
+                //update _e by calculating last elements
+                size_type index = _size;
+                if (_offset)
+                    index -= AWIDTH- _offset;
+                _e = _b + index/AWIDTH;
             }else{
                 //grow this badboy
+                //if 
+                while (s>_size){
+                    //
+                    if (_e+1==_top_size){
+                        grow_outter();
+                    }
+                    //add elements
+                    pointer cur = &*end();
+                    ++_size;
+                    _a.construct (cur, v);
+
+                }
 
 
             }
@@ -857,13 +873,19 @@ class my_deque {
         
         //grows outter array to _top_size*2
         void grow_outter(){
+            assert(_top_size % 2 == 0); //algrotihm will break with uneven top
             b_pointer new_top = _outter.allocate (_top_size*2);
             size_type temp=_b;
             size_type c;
+            for (c = 0; c<_top_size/2;c++)
+                new_top[c]=_a.allocate(AWIDTH);
             for (c = 0; c< _top_size; c++){
-                new_top[c+(new_top/4)]= _top[c];
+                new_top[c+(_top_size/2)]= _top[c];
             }
-            _b= _b + (new_top/4);
+            for (c = (_top_size * 3) /2; c < _top_size*2; c++){
+                new_top[c]=_a.allocate(AWIDTH);
+            }
+            _b= _b + (_top_size/2);
             _e= --c;
             _outter.deallocate (_top, _top_size);
             _top = new_top;
