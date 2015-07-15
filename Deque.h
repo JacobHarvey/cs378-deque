@@ -606,8 +606,8 @@ class my_deque {
                 dummy = _top[_b][(index+_offset)%AWIDTH];
             }
             else{
-                index -= (AWIDTH-_offset);
-                dummy = _top[_b+1+index/AWIDTH][index%AWIDTH];
+                index -= AWIDTH-_offset;
+                dummy = _top[_b+1+(index/AWIDTH)][index%AWIDTH];
             }
             return dummy;}
 
