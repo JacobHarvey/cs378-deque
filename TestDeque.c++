@@ -67,6 +67,13 @@ TYPED_TEST(Deque_Fixture, test_11) {
     ASSERT_EQ(x.size(),18);
     ASSERT_EQ(x[17],0);}
 
+TYPED_TEST(Deque_Fixture, front_test_1) {
+    typedef typename TestFixture::deque_type deque_type;
+
+    deque_type x (18);
+    ASSERT_EQ(x.size(),18);
+    ASSERT_EQ(x.front(),0);}
+
 TYPED_TEST(Deque_Fixture, test_5) {
     typedef typename TestFixture::deque_type deque_type;
 

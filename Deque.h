@@ -756,7 +756,7 @@ class my_deque {
         reference front () {
             // <your code>
             // dummy is just to be able to compile the skeleton, remove it
-            static value_type dummy;
+            reference dummy = this->operator[](0);
             return dummy;}
 
         /**
@@ -785,7 +785,7 @@ class my_deque {
          * <your documentation>
          */
         void pop_back () {
-            // <your code>
+        		//resize -1
             assert(valid());}
 
         /**
