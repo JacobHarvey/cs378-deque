@@ -811,7 +811,7 @@ class my_deque {
          */
         void push_back (const_reference val) {
             if (_top_size==_size){
-                resize()
+                resize(++_size);
 
             }
             else{
