@@ -17,9 +17,9 @@
 #include <memory>    // allocator
 #include <stdexcept> // out_of_range
 #include <utility>   // !=, <=, >, >=
+#include <iostream> //cout
 
-
-#define AWIDTH 16
+#define AWIDTH 10
 
 
 // -----
@@ -178,11 +178,10 @@ class my_deque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * TODO check outter?
                  */
                 friend bool operator == (const iterator& lhs, const iterator& rhs) {
-                    // <your code>
-                    return true;}
+                    return (lhs._index == rhs._index);}
 
                 /**
                  * <your documentation>
@@ -250,7 +249,7 @@ class my_deque {
                  * <your documentation>
                  */
                 reference operator * () const {
-                    static value_type dummy = _outter[_index]; 
+                    reference dummy = _outter[_index]; 
                     return dummy;}
 
                 // -----------
@@ -355,8 +354,7 @@ class my_deque {
                  * <your documentation>
                  */
                 friend bool operator == (const const_iterator& lhs, const const_iterator& rhs) {
-                    // <your code>
-                    return true;}
+                    return lhs._index == rhs._index;}
 
                 /**
                  * <your documentation>
@@ -512,7 +510,27 @@ class my_deque {
          * <your documentation>
          */
         explicit my_deque (const allocator_type& a = allocator_type()):_a(a) {
-            _offset = 0;
+            const_reference v = value_type();
+            difference_type s =0;
+            _top = _outter.allocate((s/AWIDTH + 1)*2);
+            _top_size = (s/AWIDTH + 1)*2;
+            _top[1]=_a.allocate(AWIDTH);
+            _b = 1;
+            //allocate all the needed inner arrays
+            int i = 0;
+            for (i=1; i<= s/AWIDTH; i++){
+                _top[i+1] = _a.allocate(AWIDTH);}
+            if (s%AWIDTH){
+                _e = i-1;}
+            else{
+                _e = i;}
+            //set variables
+            _size=s;
+            _offset=0;
+
+            //do the fill stuff
+            uninitialized_fill(_a, begin(), end(), v);
+            assert(valid());
             assert(valid());}
 
         /**
@@ -537,10 +555,12 @@ class my_deque {
             int i = 0;
             for (i=1; i<= s/AWIDTH; i++){
                 _top[i+1] = _a.allocate(AWIDTH);}
-            if (s%AWIDTH){
+            if (s<AWIDTH)
+                _e=_b;
+            else if (s%AWIDTH){
                 _e = i-1;}
             else{
-                _e = i;}
+                _e = i-1;}
             //set variables
             _size=s;
             _offset=0;
@@ -603,15 +623,26 @@ class my_deque {
         reference operator [] (size_type index) {
             // <your code>
             // dummy is just to be able to compile the skeleton, remove it
-            static value_type dummy;
+            static value_type d;
+            //std::cout << "offset is " << _offset << std::endl;
+            //std::cout << "index is " << index << std::endl;
             if(index < (AWIDTH-_offset)){
-                dummy = _top[_b][(index+_offset)];
+                reference dummy = _top[_b][(index+_offset)];
+                //std::cout << "innner array is _b" << "inner index is " << index+_offset<< std::endl;
+                return dummy;
             }
             else{
-                index -= AWIDTH-_offset;
-                dummy = _top[_b+1+(index/AWIDTH)][index%AWIDTH];
+                if(_offset){
+                    index -= AWIDTH-_offset;}
+
+                reference dummy = _top[_b+(index/AWIDTH)][index%AWIDTH];
+                //std::cout << "inner array is " << _b+(index/AWIDTH) << std::endl;
+                return dummy;
             }
-            return dummy;}
+            
+            std::cout << "[] is fucking up " << index%AWIDTH << std::endl;
+            //std::cout << "dummy val is " << dummy << std::endl;
+            return d;}
 
         /**
          * <your documentation>
@@ -670,7 +701,7 @@ class my_deque {
          * <your documentation>
          */
         const_iterator begin () const {
-            return const_iterator(/***/);}
+            return const_iterator(0, *this);}
 
         // -----
         // clear
@@ -708,7 +739,7 @@ class my_deque {
          */
         const_iterator end () const {
             // <your code>
-            return const_iterator(/* <your arguments> */);}
+            return const_iterator(_size, *this);}
 
         // -----
         // erase
