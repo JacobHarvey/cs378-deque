@@ -36,7 +36,7 @@ struct Deque_Fixture : Test {
     typedef typename deque_type::value_type value_type;};
 
 typedef Types<
-               //deque<int>
+               //deque<int>,
                 my_deque<int>
                >
         deque_types;
@@ -196,7 +196,38 @@ TYPED_TEST(Deque_Fixture, iterator_2) {
 			++b;}
 	ASSERT_EQ(x.end(),b);}
 
+TYPED_TEST(Deque_Fixture, test_resize_1) {
+    typedef typename TestFixture::deque_type deque_type;
+    deque_type x (1000);
+    ASSERT_EQ(x.size(),1000);
+    x.resize(500);
+    ASSERT_EQ(x.size(), 500);}
 
+TYPED_TEST(Deque_Fixture, test_resize_2) {
+    typedef typename TestFixture::deque_type deque_type;
+    deque_type x (10);
+    ASSERT_EQ(x.size(),10);
+    x.resize(500);
+    ASSERT_EQ(x.size(), 500);}
+
+TYPED_TEST(Deque_Fixture, test_resize_3) {
+    typedef typename TestFixture::deque_type deque_type;
+    deque_type x (10);
+    ASSERT_EQ(x.size(),10);
+    x.resize(15);
+    ASSERT_EQ(x.size(), 15);}
+
+/*
+TYPED_TEST(Deque_Fixture, test_resize_2) {
+    typedef typename TestFixture::deque_type deque_type;
+    deque_type x (1000);
+    ASSERT_EQ(x.size(),1000);
+    x.resize(0);
+    ASSERT_EQ(x.size(), 0);
+    typename deque_type::iterator e = x.end();
+    typename deque_type::iterator b = x.begin();
+    ASSERT_EQ(e, b);}
+*/
 
 // -----
 // Tests

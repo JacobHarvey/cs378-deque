@@ -844,7 +844,7 @@ class my_deque {
             if (s==_size) return;
             //shrink, get bi direction iterator, deallocate each element, until s, calculate new e, set size, 
             if (s<_size){
-                while (s<_size--){
+                while (s<--_size){
                     _a.destroy(&*end());}
                 //update _e by calculating last elements
                 size_type index = _size;
@@ -863,10 +863,12 @@ class my_deque {
                     pointer cur = &*end();
                     ++_size;
                     _a.construct (cur, v);
-
+                    //update _e
+                    size_type index = _size;
+                    if (_offset)
+                        index -= AWIDTH- _offset;
+                    _e = _b + index/AWIDTH;
                 }
-
-
             }
 
             assert(valid());}
