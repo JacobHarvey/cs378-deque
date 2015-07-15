@@ -142,6 +142,7 @@ class my_deque {
         size_type _top_size;
         difference_type _offset;
         size_type _size;
+        value_type _v;
         
         // <your data>
 
@@ -569,6 +570,7 @@ class my_deque {
             //set variables
             _size=s;
             _offset=0;
+            _v=v;
 
             //do the fill stuff
             uninitialized_fill(_a, begin(), end(), v);
@@ -677,8 +679,7 @@ class my_deque {
         reference back () {
             // <your code>
             // dummy is just to be able to compile the skeleton, remove it
-            static value_type dummy;
-            return dummy;}
+            return *(--end());}
 
         /**
          * <your documentation>
@@ -808,14 +809,22 @@ class my_deque {
         /**
          * <your documentation>
          */
-        void push_back (const_reference) {
-            // <your code>
+        void push_back (const_reference val) {
+            if (_top_size==_size){
+                resize()
+
+            }
+            else{
+                pointer cur = &*end();
+                ++_size;
+                _a.construct(cur, _v);
+            }
             assert(valid());}
 
         /**
          * <your documentation>
          */
-        void push_front (const_reference) {
+        void push_front (const_reference val) {
             // <your code>
             assert(valid());}
 
