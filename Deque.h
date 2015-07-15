@@ -548,6 +548,7 @@ class my_deque {
         explicit my_deque (size_type s, const_reference v = value_type(), const allocator_type& a = allocator_type()): _a(a) {
             _top = _outter.allocate((s/AWIDTH + 1)*2);
             _top_size = (s/AWIDTH + 1)*2;
+            _top[0]=_a.allocate(AWIDTH);
             _top[1]=_a.allocate(AWIDTH);
             _b = 1;
             //allocate all the needed inner arrays
@@ -560,6 +561,11 @@ class my_deque {
             //    _e = i-1;}
             else{
                 _e = i;}
+            //alocating all of the arrays n stuff
+            ++i;
+            for ( ;i<_top_size;i++){
+                _top[i] = _a.allocate(AWIDTH);
+            }
             //set variables
             _size=s;
             _offset=0;
@@ -595,7 +601,7 @@ class my_deque {
         ~my_deque () {
             //call _a.destroy(); and then deallocate each array, then deallocate outside array
             destroy (_a, begin(), end());
-            for (difference_type i = _b; i <=_e; i++)
+            for (difference_type i = 0; i <_top_size; i++)
                 _a.deallocate(_top[i], AWIDTH);
             _outter.deallocate (_top, _top_size);
             assert(valid());}
@@ -818,11 +824,42 @@ class my_deque {
         // ------
 
         /**
+         * User-level, number of objects
          * <your documentation>
          */
         void resize (size_type s, const_reference v = value_type()) {
-            // <your code>
+            //if longer but within _top_size but if allocated
+            // if longer than _top_size, _b.allocate new, and transfer pointers,
+            // 
+            if (s==_size) return;
+            //shrink, get bi direction iterator, deallocate each element, until s, calculate new e, set size, 
+            if (s<_size){
+                while (s<_size--){
+                    _a.destroy(&*end());
+                }
+
+            }else{
+                //grow this badboy
+
+
+            }
+
             assert(valid());}
+        
+        //grows outter array to _top_size*2
+        void grow_outter(){
+            b_pointer new_top = _outter.allocate (_top_size*2);
+            size_type temp=_b;
+            size_type c;
+            for (c = _b; c<= _e; c++){
+                new_top[c+(new_top/4)]= _top[c];
+            }
+            _b= _b+(new_top/4);
+            _e= --c;
+            _outter.deallocate (_top, _top_size);
+            _top = new_top;
+            _top_size=_top_size*2;
+        };
 
         // ----
         // size
