@@ -19,7 +19,7 @@
 #include <utility>   // !=, <=, >, >=
 
 
-#define AWIDTH 20
+#define AWIDTH 16
 
 
 // -----
@@ -512,7 +512,7 @@ class my_deque {
          * <your documentation>
          */
         explicit my_deque (const allocator_type& a = allocator_type()):_a(a) {
-            
+            _offset = 0;
             assert(valid());}
 
         /**
@@ -529,13 +529,13 @@ class my_deque {
 
          */
         explicit my_deque (size_type s, const_reference v = value_type(), const allocator_type& a = allocator_type()): _a(a) {
-            _top = _outter.allocate(s/AWIDTH * 2 + 1);
-            _top_size = s/AWIDTH * 2 + 1;
+            _top = _outter.allocate((s/AWIDTH + 1)*2);
+            _top_size = (s/AWIDTH + 1)*2;
             _top[1]=_a.allocate(AWIDTH);
             _b = 1;
             //allocate all the needed inner arrays
             int i = 0;
-            for (i=1; i< s/ AWIDTH; i++){
+            for (i=1; i< s/AWIDTH+1; i++){
                 _top[i+1] = _a.allocate(AWIDTH);
             }
             _e = i;
@@ -602,11 +602,11 @@ class my_deque {
             // <your code>
             // dummy is just to be able to compile the skeleton, remove it
             static value_type dummy;
-            if(index < AWIDTH-_offset){
+            if(index < (AWIDTH-_offset)+1){
                 dummy = _top[_b][(index+_offset)%AWIDTH];
             }
             else{
-                index -= AWIDTH-_offset;
+                index -= (AWIDTH-_offset);
                 dummy = _top[_b+1+index/AWIDTH][index%AWIDTH];
             }
             return dummy;}
