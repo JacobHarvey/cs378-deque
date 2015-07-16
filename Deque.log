@@ -1,3 +1,46 @@
+commit b3b9c10744296bbbf8a96b9701a82710d4605e30
+Author: = <=>
+Date:   Thu Jul 16 02:28:08 2015 -0500
+
+    closes #17 closes #15 closes #10 closes #6 closes #11
+
+commit 5ae0e164fc30596a5a2bfea6e268c358b2d43bc7
+Merge: 99f0e00 774cb0d
+Author: = <=>
+Date:   Thu Jul 16 02:23:06 2015 -0500
+
+    Merge branch 'dev'
+
+commit 99f0e00bc1e46151dffa14cf70639d4a0dda9b23
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Thu Jul 16 02:21:53 2015 -0500
+
+    working on doxygen stuff
+
+commit 774cb0dec33f3350046e196c36a878248ee3cd0f
+Author: = <=>
+Date:   Thu Jul 16 02:21:29 2015 -0500
+
+    began documentation
+
+commit 30330b61a52db453f8e9d016a41a184653802a3b
+Author: = <=>
+Date:   Thu Jul 16 02:04:14 2015 -0500
+
+    valid and deque tests closes #20
+
+commit f42868dd28dad74567a101fad56fb9e744fa474f
+Author: = <=>
+Date:   Thu Jul 16 01:53:46 2015 -0500
+
+    tests passing
+
+commit 040876f83613d4c555b81575bb373b0214b68401
+Author: = <=>
+Date:   Thu Jul 16 01:45:20 2015 -0500
+
+    closes #1 added log file
+
 commit 00dcac25f68dd7beb24e09d92400c0ba1a954bd4
 Author: JacobHarvey <jacoblharvey@utexas.edu>
 Date:   Thu Jul 16 01:41:10 2015 -0500
