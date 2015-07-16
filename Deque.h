@@ -187,15 +187,20 @@ class my_deque {
                 // operator ==
                 // -----------
 
-                /**
+                /*
+								 * @param lhs iterator
+								 * @param rhs iterator
+								 * @ret true iff the params are equal
                  */
                 friend bool operator == (const iterator& lhs, const iterator& rhs) {
                     if (&lhs._outter != &rhs._outter)
                         return false;
                     return (lhs._index == rhs._index);}
 
-                /**
-                 * <your documentation>
+                /*
+								 * @param lhs iterator
+								 * @param rhs iterator
+								 * @ret true iff the params are not equal
                  */
                 friend bool operator != (const iterator& lhs, const iterator& rhs) {
                     return !(lhs == rhs);}
@@ -204,8 +209,10 @@ class my_deque {
                 // operator +
                 // ----------
 
-                /**
-                 * <your documentation>
+                /*
+								 * @param lhs iterator
+								 * @param diff_type number to add
+								 * @ret the pointer sum of lhs and rhs
                  */
                 friend iterator operator + (iterator lhs, difference_type rhs) {
                     return lhs += rhs;}
@@ -214,8 +221,10 @@ class my_deque {
                 // operator -
                 // ----------
 
-                /**
-                 * <your documentation>
+                /*
+								 * @param lhs iterator
+								 * @param diff_type number to subtract
+								 * @ret the pointer difference of lhs and rhs
                  */
                 friend iterator operator - (iterator lhs, difference_type rhs) {
                     return lhs -= rhs;}
@@ -242,8 +251,10 @@ class my_deque {
                 // constructor
                 // -----------
 
-                /**
-                 * <your documentation>
+                /*
+								 * @param diff_type index
+								 * @param outter the deque to interate over 
+								 * @ret new iterator at index
                  */
                 iterator (difference_type index, my_deque& outter): _index(index), _outter(outter) {
                     assert(valid());}
@@ -257,8 +268,8 @@ class my_deque {
                 // operator *
                 // ----------
 
-                /**
-                 * <your documentation>
+                /*
+								 * @ret the value at index
                  */
                 reference operator * () const {
                     reference dummy = _outter[_index]; 
@@ -268,8 +279,8 @@ class my_deque {
                 // operator ->
                 // -----------
 
-                /**
-                 * <your documentation>
+                /*
+								 * @ret the addess of the container
                  */
                 pointer operator -> () const {
                     return &**this;}
@@ -278,16 +289,17 @@ class my_deque {
                 // operator ++
                 // -----------
 
-                /**
-                 * <your documentation>
+                /*
+								 * @ret the iterator moved forward one spot
                  */
                 iterator& operator ++ () {
                     ++_index;
                     assert(valid());
                     return *this;}
 
-                /**
-                 * <your documentation>
+                /*
+								 * moves the iterator forward
+								 * @ret a copy of the original iterator
                  */
                 iterator operator ++ (int) {
                     iterator x = *this;
@@ -299,16 +311,17 @@ class my_deque {
                 // operator --
                 // -----------
 
-                /**
-                 * <your documentation>
+                /*
+								 * @ret the iterator moved backward one spot
                  */
                 iterator& operator -- () {
                     --_index;
                     assert(valid());
                     return *this;}
 
-                /**
-                 * <your documentation>
+                /*
+								 * moves the iterator backward
+								 * @ret a copy of the original iterator
                  */
                 iterator operator -- (int) {
                     iterator x = *this;
@@ -320,8 +333,9 @@ class my_deque {
                 // operator +=
                 // -----------
 
-                /**
-                 * <your documentation>
+                /*
+								 * @param diff_type d value to add
+								 * @ret the iterator moved forward d times
                  */
                 iterator& operator += (difference_type d) {
                     _index+=d;
@@ -332,8 +346,9 @@ class my_deque {
                 // operator -=
                 // -----------
 
-                /**
-                 * <your documentation>
+                /*
+								 * @param diff_type d value to subtract`
+								 * @ret the iterator moved backward d times
                  */
                 iterator& operator -= (difference_type d) {
                     _index-=d;
@@ -362,16 +377,20 @@ class my_deque {
                 // operator ==
                 // -----------
 
-                /**
-                 * <your documentation>
+                /*
+								 * @param lhs iterator
+								 * @param rhs iterator
+								 * @ret true iff the params are equal
                  */
                 friend bool operator == (const const_iterator& lhs, const const_iterator& rhs) {
                     if (&lhs._outter != &rhs._outter)
                         return false;
                     return lhs._index == rhs._index;}
 
-                /**
-                 * <your documentation>
+                /*
+								 * @param lhs iterator
+								 * @param rhs iterator
+								 * @ret true iff the params are not equal
                  */
                 friend bool operator != (const const_iterator& lhs, const const_iterator& rhs) {
                     return !(lhs == rhs);}
@@ -380,8 +399,10 @@ class my_deque {
                 // operator +
                 // ----------
 
-                /**
-                 * <your documentation>
+                /*
+								 * @param lhs iterator
+								 * @param diff_type number to add
+								 * @ret the pointer sum of lhs and rhs
                  */
                 friend const_iterator operator + (const_iterator lhs, difference_type rhs) {
                     return lhs += rhs;}
@@ -390,8 +411,10 @@ class my_deque {
                 // operator -
                 // ----------
 
-                /**
-                 * <your documentation>
+                /*
+								 * @param lhs iterator
+								 * @param diff_type number to subtract
+								 * @ret the pointer difference of lhs and rhs
                  */
                 friend const_iterator operator - (const_iterator lhs, difference_type rhs) {
                     return lhs -= rhs;}
@@ -433,8 +456,8 @@ class my_deque {
                 // operator *
                 // ----------
 
-                /**
-                 * <your documentation>
+                /*
+								 * @ret the value at index
                  */
                 reference operator * () const { 
                     return _outter[_index];}
@@ -443,8 +466,8 @@ class my_deque {
                 // operator ->
                 // -----------
 
-                /**
-                 * <your documentation>
+                /*
+								 * @ret the addess of the container
                  */
                 pointer operator -> () const {
                     return &**this;}
@@ -453,16 +476,17 @@ class my_deque {
                 // operator ++
                 // -----------
 
-                /**
-                 * <your documentation>
+                /*
+								 * @ret the iterator moved forward one spot
                  */
                 const_iterator& operator ++ () {
                     ++_index;
                     assert(valid());
                     return *this;}
 
-                /**
-                 * <your documentation>
+                /*
+								 * moves the iterator forward
+								 * @ret a copy of the original iterator
                  */
                 const_iterator operator ++ (int) {
                     const_iterator x = *this;
@@ -474,16 +498,17 @@ class my_deque {
                 // operator --
                 // -----------
 
-                /**
-                 * <your documentation>
+                /*
+								 * @ret the iterator moved backward one spot
                  */
                 const_iterator& operator -- () {
                     --_index;
                     assert(valid());
                     return *this;}
 
-                /**
-                 * <your documentation>
+                /*
+								 * moves the iterator backward
+								 * @ret a copy of the original iterator
                  */
                 const_iterator operator -- (int) {
                     const_iterator x = *this;
@@ -495,8 +520,9 @@ class my_deque {
                 // operator +=
                 // -----------
 
-                /**
-                 * <your documentation>
+                /*
+								 * @param diff_type d value to add
+								 * @ret the iterator moved forward d times
                  */
                 const_iterator& operator += (difference_type i2) {
                     _index += i2;
@@ -507,8 +533,9 @@ class my_deque {
                 // operator -=
                 // -----------
 
-                /**
-                 * <your documentation>
+                /*
+								 * @param diff_type d value to subtract`
+								 * @ret the iterator moved backward d times
                  */
                 const_iterator& operator -= (difference_type i2) {
                     _index -= i2;
