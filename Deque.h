@@ -161,11 +161,11 @@ class my_deque {
         // -----
 
         bool valid () const {
-            // <your code>
+            if( _size >_top_size*AWIDTH || _size < 0 ){
+								return false;}
             return true;}
-        pointer get_last(){
-            return _e[((_size)-(AWIDTH-_offset))%AWIDTH];}
-    public:
+    
+		public:
         // --------
         // iterator
         // --------
