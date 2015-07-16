@@ -548,7 +548,8 @@ class my_deque {
         // ------------
 
         /**
-         * 
+         * @param specify the allocator type (not required)
+				 * @ret a new instance of my_deque
          */
         explicit my_deque (const allocator_type& a = allocator_type()):_a(a) {
             const_reference v = value_type();
@@ -571,7 +572,10 @@ class my_deque {
             assert(valid());}
 
         /**
-         *
+				 * @param s size of the new my_deque 
+         * @param specify the value (not required)
+         * @param specify the allocator type (not required)
+				 * @ret a new instance of my_deque
          */
         explicit my_deque (size_type s, const_reference v = value_type(), const allocator_type& a = allocator_type()): _a(a) {
             _top = _outter.allocate((s/AWIDTH + 1)*2);
@@ -603,8 +607,8 @@ class my_deque {
             assert(valid());}
 
         /**
-         * Copy Constructor
-         *
+				 * @param original my_deque to be copied
+				 * @ret a new instance of my_deque identical to the original
          */
         my_deque (const my_deque& that):_a(that._a) {
             _top = _outter.allocate(that._top_size);
