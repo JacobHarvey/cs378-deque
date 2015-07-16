@@ -142,7 +142,6 @@ class my_deque {
         size_type _top_size;
         difference_type _offset;
         size_type _size;
-        value_type _v;
         
         // <your data>
 
@@ -572,7 +571,6 @@ class my_deque {
             //set variables
             _size=s;
             _offset=0;
-            _v=v;
 
             //do the fill stuff
             uninitialized_fill(_a, begin(), end(), v);
@@ -921,8 +919,17 @@ class my_deque {
         /**
          * <your documentation>
          */
-        void swap (my_deque&) {
-            // <your code>
+        void swap (my_deque& that) {
+            std::swap (this->_a, that._a); // allocator for inner arrays
+            std::swap (this->_outter, that._outter); //allocator for outer array?
+            std::swap (this->_top, that._top); //points to first container
+            std::swap (this->_e, that._e); //end of size
+            size_type (this->_b, that._b); // begining
+            size_type (this->_top_size, that._top_size);
+            difference_type (this->_offset, that._offset);
+            size_type (this->_size, that._size);
+
+
             assert(valid());}};
 
 #endif // Deque_h
