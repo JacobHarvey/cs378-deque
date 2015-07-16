@@ -521,7 +521,7 @@ class my_deque {
         // ------------
 
         /**
-         * <your documentation>
+         * 
          */
         explicit my_deque (const allocator_type& a = allocator_type()):_a(a) {
             const_reference v = value_type();
@@ -544,17 +544,7 @@ class my_deque {
             assert(valid());}
 
         /**
-         * <your documentation>
-         *  allocator_type _a; // allocator for inner arrays
-        B _b; //allocator for outer array?
-        b_pointer _top; //points to first container
-        pointer _e; //end of size
-        pointer _b; // begining
-        //pointer_l; //for capacity of current
-        difference_type _top_size;
-        difference_type offset;
-        size_type size;
-
+         *
          */
         explicit my_deque (size_type s, const_reference v = value_type(), const allocator_type& a = allocator_type()): _a(a) {
             _top = _outter.allocate((s/AWIDTH + 1)*2);
@@ -587,6 +577,7 @@ class my_deque {
 
         /**
          * Copy Constructor
+         *
          */
         my_deque (const my_deque& that):_a(that._a) {
             _top = _outter.allocate(that._top_size);
@@ -607,7 +598,7 @@ class my_deque {
         // ----------
 
         /**
-         * <your documentation>
+         * deque constructor
          */
         ~my_deque () {
             //call _a.destroy(); and then deallocate each array, then deallocate outside array
@@ -622,7 +613,8 @@ class my_deque {
         // ----------
 
         /**
-         * <your documentation>
+         * @ret my_deque&
+         * sets this to the deque passed in
          */
         my_deque& operator = (const my_deque& rhs) {
             clear();
@@ -642,7 +634,8 @@ class my_deque {
         // -----------
 
         /**
-         * <your documentation>
+         * @param size_type index, used to index into the deque
+         * @ret returns a reference of the object at the location index
          */
         reference operator [] (size_type index) {
             // dummy is just to be able to compile the skeleton, remove it
@@ -664,7 +657,8 @@ class my_deque {
                 return dummy;}
 
         /**
-         * <your documentation>
+         * @param size_type index, used to index into the deque
+         * @ret returns a reference of the object at the location index
          */
         const_reference operator [] (size_type index) const {
             return const_cast<my_deque*>(this)->operator[](index);}
@@ -674,7 +668,8 @@ class my_deque {
         // --
 
         /**
-         * <your documentation>
+         *@param size_type index, used to index into the deque
+         * @ret returns a reference of the object at the location index
          */
         reference at (size_type index) {
             // 
@@ -682,7 +677,8 @@ class my_deque {
             return this->operator[](index);}
 
         /**
-         * <your documentation>
+         * @param size_type index, used to index into the deque
+         * @ret returns a reference of the object at the location index
          */
         const_reference at (size_type index) const {
             return const_cast<my_deque*>(this)->at(index);}
@@ -692,14 +688,14 @@ class my_deque {
         // ----
 
         /**
-         * <your documentation>
+         * @ret object at the end of the array
          */
         reference back () {
             // dummy is just to be able to compile the skeleton, remove it
             return *(--end());}
 
         /**
-         * <your documentation>
+         * @ret object at the end of the array
          */
         const_reference back () const {
             return const_cast<my_deque*>(this)->back();}
@@ -709,13 +705,13 @@ class my_deque {
         // -----
 
         /**
-         * <your documentation>
+         * @ret returns iterator pointing to the first element
          */
         iterator begin () { 
             return iterator(0, *this);}
 
         /**
-         * <your documentation>
+         * @ret iterator that points to 1 position past the end of the deque
          */
         const_iterator begin () const {
             return const_iterator(0, *this);}
@@ -725,7 +721,7 @@ class my_deque {
         // -----
 
         /**
-         * <your documentation>
+         * clears the array
          */
         void clear () {
             resize(0);
@@ -736,7 +732,7 @@ class my_deque {
         // -----
 
         /**
-         * <your documentation>
+         * @ret a bool if the deque is empty
          */
         bool empty () const {
             return !size();}
@@ -746,13 +742,14 @@ class my_deque {
         // ---
 
         /**
-         * <your documentation>
+         * @ret iterator that points to 1 position past the end of the deque
+
          */
         iterator end () {
             return iterator(_size, *this);}
 
         /**
-         * <your documentation>
+         * @ret const_iterator that points to 1 position past the end of the deque
          */
         const_iterator end () const {
             return const_iterator(_size, *this);}
@@ -763,7 +760,8 @@ class my_deque {
 
         /**
          * @param iterator iter, points to location to be erased
-         * result: size()==
+         * @ret an iterator pointing to the location that was erased
+         * erases the object at iter
          */
         iterator erase (iterator iter) {
             if (iter==end())
@@ -785,7 +783,7 @@ class my_deque {
         // -----
 
         /**
-         * <your documentation>
+         * @ret const_reference the object at the front of the array
          */
         reference front () {
             // <your code>
@@ -794,7 +792,7 @@ class my_deque {
             return dummy;}
 
         /**
-         * <your documentation>
+         * @ret const_reference the object at the front of the array
          */
         const_reference front () const {
             return const_cast<my_deque*>(this)->front();}
@@ -804,8 +802,10 @@ class my_deque {
         // ------
 
         /**
-         * <your documentation>
+         * @param iterator iter points to the location to insert
+         * @const_reference val value to insert
          * @ret iterator pointing to spot where inserted
+         * pushes stuff at the location iter and afterwards backwards 1 and inserts val
          */
         iterator insert (iterator iter, const_reference val) {
             resize(_size+1);
@@ -825,14 +825,14 @@ class my_deque {
         // ---
 
         /**
-         * <your documentation>
+         * removes the last element
          */
         void pop_back () {
         	this->resize(_size-1);
             assert(valid());}
 
         /**
-         * <your documentation>
+         * removes the first element
          */
         void pop_front () {
             if (_offset == AWIDTH-1){
@@ -851,14 +851,16 @@ class my_deque {
         // ----
 
         /**
-         * <your documentation>
+         * @param const_reference val 
+         * pushes val to the bac of the array
          */
         void push_back (const_reference val) {
             resize(_size+1, val);
             assert(valid());}
 
         /**
-         * <your documentation>
+         * @param const_reference val
+         * pushes val to the front of the array, deque[0] returns val
          */
         void push_front (const_reference val) {
             if(_offset == 0 && _b == 0)
@@ -879,8 +881,9 @@ class my_deque {
         // ------
 
         /**
-         * User-level, number of objects
-         * <your documentation>
+         * @param size_type s the size to change the deque to
+         * @param const_reference v the value to initialize each new spot to
+         * resizes the deque, adds/ removes space from the back
          */
         void resize (size_type s, const_reference v = value_type()) {
             //if longer but within _top_size but if allocated
@@ -939,7 +942,7 @@ class my_deque {
         // ----
 
         /**
-         * <your documentation>
+         * @ret returns the size_type size of this deque 
          */
         size_type size () const {
             // <your code>
@@ -950,7 +953,8 @@ class my_deque {
         // ----
 
         /**
-         * <your documentation>
+         * @param my_deque&
+         * changes all of the containers and info from this deque into the one passed in
          */
         void swap (my_deque& that) {
             std::swap (this->_a, that._a); // allocator for inner arrays
