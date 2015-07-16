@@ -616,7 +616,6 @@ class my_deque {
          * <your documentation>
          */
         my_deque& operator = (const my_deque& rhs) {
-            // <your code>
             assert(valid());
             return *this;}
 
@@ -628,7 +627,6 @@ class my_deque {
          * <your documentation>
          */
         reference operator [] (size_type index) {
-            // <your code>
             // dummy is just to be able to compile the skeleton, remove it
             //std::cout << "offset is " << _offset << std::endl;
             //std::cout << "index is " << index << std::endl;
@@ -639,7 +637,6 @@ class my_deque {
                 return dummy;
             } 
                 if(_offset){
-
                     index -= AWIDTH-_offset;}
                 //std::cout << "getting second shit " << " index is " << index << "b is " << _b << std::endl;
 
@@ -680,7 +677,6 @@ class my_deque {
          * <your documentation>
          */
         reference back () {
-            // <your code>
             // dummy is just to be able to compile the skeleton, remove it
             return *(--end());}
 
@@ -741,7 +737,6 @@ class my_deque {
          * <your documentation>
          */
         const_iterator end () const {
-            // <your code>
             return const_iterator(_size, *this);}
 
         // -----
@@ -749,10 +744,19 @@ class my_deque {
         // -----
 
         /**
-         * <your documentation>
+         * @param iterator iter, points to location to be erased
+         * result: size()==
          */
-        iterator erase (iterator) {
-            // <your code>
+        iterator erase (iterator iter) {
+            _a.destroy (&*iter);
+            iterator cur = iter;
+            iterator next = ++iter;
+            while (next!=end()){
+                *cur = *next;
+                ++cur;
+                ++next;
+            }
+            pop_back();
             assert(valid());
             return iterator();}
 
@@ -795,7 +799,7 @@ class my_deque {
          * <your documentation>
          */
         void pop_back () {
-        		//resize -1
+        		this.resize (_size-1);
             assert(valid());}
 
         /**
@@ -813,16 +817,7 @@ class my_deque {
          * <your documentation>
          */
         void push_back (const_reference val) {
-            if (_e+1==_top_size){
-                grow_outter();}
-            _a.construct(&*end(), val);
-            ++_size;
-            //no idea if i need to update _e but whatevs
-            size_type index = _size;
-            if (_offset)
-                index -= AWIDTH- _offset;
-            _e = _b + index/AWIDTH;
-
+            resize(_size+1, val);
             assert(valid());}
 
         /**
