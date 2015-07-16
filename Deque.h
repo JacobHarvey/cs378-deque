@@ -110,11 +110,12 @@ class my_deque {
          * <your documentation>
          */
         friend bool operator == (const my_deque& lhs, const my_deque& rhs) {
-            typename my_deque::iterator b1 = lhs.begin();// <your code>
-            typename my_deque::iterator b2 = rhs.begin();// <your code>
-            typename my_deque::iterator e = lhs.end();// <your code>
-            // you must use std::equal()
-            return true;}
+            if (rhs.size() != lhs.size())
+                return false;
+            typename my_deque::const_iterator b1 = lhs.begin();// <your code>
+            typename my_deque::const_iterator b2 = rhs.begin();// <your code>
+            typename my_deque::const_iterator e = lhs.end();// <your code>
+            return std::equal (b1, e, b2);}
 
         // ----------
         // operator <
@@ -750,7 +751,7 @@ class my_deque {
         iterator erase (iterator iter) {
             _a.destroy (&*iter);
             iterator cur = iter;
-            iterator next = ++iter;
+            iterator next = iter+1;
             while (next!=end()){
                 *cur = *next;
                 ++cur;
@@ -758,7 +759,7 @@ class my_deque {
             }
             pop_back();
             assert(valid());
-            return iterator();}
+            return iter;}
 
         // -----
         // front
@@ -785,11 +786,12 @@ class my_deque {
 
         /**
          * <your documentation>
+         * @ret iterator pointing to spot where inserted
          */
-        iterator insert (iterator, const_reference) {
+        iterator insert (iterator iter, const_reference) {
             // <your code>
             assert(valid());
-            return iterator();}
+            return iter;}
 
         // ---
         // pop
@@ -799,7 +801,7 @@ class my_deque {
          * <your documentation>
          */
         void pop_back () {
-        		this.resize (_size-1);
+        	this->resize (_size-1);
             assert(valid());}
 
         /**
@@ -829,7 +831,8 @@ class my_deque {
             if(_offset == 0){
                 _offset = AWIDTH-1;
                 --_b;
-                _a.construct(&(_top[_b][_offset]), val);}
+                _a.construct(&(_top[_b][_offset]), val);
+                ++_size;}
             else{
                  --_offset;
                  _a.construct (&*begin(), val);
@@ -919,12 +922,10 @@ class my_deque {
             std::swap (this->_outter, that._outter); //allocator for outer array?
             std::swap (this->_top, that._top); //points to first container
             std::swap (this->_e, that._e); //end of size
-            size_type (this->_b, that._b); // begining
-            size_type (this->_top_size, that._top_size);
-            difference_type (this->_offset, that._offset);
-            size_type (this->_size, that._size);
-
-
+            std::swap (this->_b, that._b); // begining
+            std::swap (this->_top_size, that._top_size);
+            std::swap (this->_offset, that._offset);
+            std::swap (this->_size, that._size);
             assert(valid());}};
 
 #endif // Deque_h
