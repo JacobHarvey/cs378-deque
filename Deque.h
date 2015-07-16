@@ -19,7 +19,7 @@
 #include <utility>   // !=, <=, >, >=
 #include <iostream> //cout
 
-#define AWIDTH 10
+#define AWIDTH 5
 
 
 // -----
@@ -223,7 +223,8 @@ class my_deque {
                 // valid
                 // -----
                 bool valid () const {
-                // <your code>
+                if (_index < 0 || _index>_outter.size())
+                    return false;
                 return true;}
 
             public:
@@ -396,7 +397,8 @@ class my_deque {
                 // valid
                 // -----
                 bool valid () const {
-                    // <your code>
+                    if (_index < 0 || _index>_outter.size())
+                        return false;
                     return true;}
 
             public:
@@ -634,14 +636,17 @@ class my_deque {
             //std::cout << "index is " << index << std::endl;
             if(index < (AWIDTH-_offset)){
                 reference dummy = _top[_b][(index+_offset)];
+                //std::cout << "here" << " index is " << index << "b is " << _b << std::endl;
                 //std::cout << "innner array is _b" << "inner index is " << index+_offset<< std::endl;
                 return dummy;
-            }
-            
+            } 
                 if(_offset){
-                    index -= AWIDTH-_offset;}
 
-                reference dummy = _top[_b+(index/AWIDTH)][index%AWIDTH];
+                    index -= AWIDTH-_offset;}
+                //std::cout << "getting second shit " << " index is " << index << "b is " << _b << std::endl;
+
+                reference dummy = _top[_b+1+(index/AWIDTH)][index%AWIDTH];
+
                 //std::cout << "inner array is " << _b+(index/AWIDTH) << std::endl;
                 return dummy;}
 
@@ -711,7 +716,7 @@ class my_deque {
          * <your documentation>
          */
         void clear () {
-            // <your code>
+            resize(0);
             assert(valid());}
 
         // -----
@@ -810,11 +815,16 @@ class my_deque {
          * <your documentation>
          */
         void push_back (const_reference val) {
-            if (_top_size==_size){
-                resize(++_size, val);}
-            else{
-                ++_size;
-                _a.construct(&*end(), val);}
+            if (_e+1==_top_size){
+                grow_outter();}
+            _a.construct(&*end(), val);
+            ++_size;
+            //no idea if i need to update _e but whatevs
+            size_type index = _size;
+            if (_offset)
+                index -= AWIDTH- _offset;
+            _e = _b + index/AWIDTH;
+
             assert(valid());}
 
         /**
@@ -827,6 +837,10 @@ class my_deque {
                 _offset = AWIDTH-1;
                 --_b;
                 _a.construct(&(_top[_b][_offset]), val);}
+            else{
+                 --_offset;
+                 _a.construct (&*begin(), val);
+                 ++_size;}   
             assert(valid());}
 
         // ------
@@ -850,8 +864,8 @@ class my_deque {
                 size_type index = _size;
                 if (_offset)
                     index -= AWIDTH- _offset;
-                _e = _b + index/AWIDTH;
-            }else{
+                _e = _b + index/AWIDTH;} 
+            else{
                 //grow this badboy
                 //if 
                 while (s>_size){
@@ -870,9 +884,7 @@ class my_deque {
                     _e = _b + index/AWIDTH;
                 }
             }
-
             assert(valid());}
-        
         //grows outter array to _top_size*2
         void grow_outter(){
             assert(_top_size % 2 == 0); //algrotihm will break with uneven top
@@ -882,17 +894,14 @@ class my_deque {
             for (c = 0; c<_top_size/2;c++)
                 new_top[c]=_a.allocate(AWIDTH);
             for (c = 0; c< _top_size; c++){
-                new_top[c+(_top_size/2)]= _top[c];
-            }
+                new_top[c+(_top_size/2)]= _top[c];}
             for (c = (_top_size * 3) /2; c < _top_size*2; c++){
-                new_top[c]=_a.allocate(AWIDTH);
-            }
-            _b= _b + (_top_size/2);
-            _e= --c;
+                new_top[c]=_a.allocate(AWIDTH);}
+            _b = _b + (_top_size/2);
+            _e = --c;
             _outter.deallocate (_top, _top_size);
             _top = new_top;
-            _top_size=_top_size*2;
-        };
+            _top_size = _top_size*2;};
 
         // ----
         // size
