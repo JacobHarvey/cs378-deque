@@ -126,8 +126,17 @@ class my_deque {
          */
         friend bool operator < (const my_deque& lhs, const my_deque& rhs) {
             // <your code>
-            // you must use std::lexicographical_compare()
-            return true;}
+            typename my_deque::const_iterator first1 = lhs.begin();// <your code>
+            typename my_deque::const_iterator first2 = rhs.begin();// <your code>
+            typename my_deque::const_iterator last1 = lhs.end();// <your code>
+            typename my_deque::const_iterator last2 = rhs.end();// <your code>
+            while (first1!=last1){
+                    if (first2==last2 || *first2<*first1) return false;
+                    else if (*first1<*first2) return true;
+                    ++first1; ++first2;
+            }
+            return (first2!=last2);}
+            // you must use std::lexicographical_compare()}
 
     private:
         // ----
@@ -179,9 +188,10 @@ class my_deque {
                 // -----------
 
                 /**
-                 * TODO check outter?
                  */
                 friend bool operator == (const iterator& lhs, const iterator& rhs) {
+                    if (&lhs._outter != &rhs._outter)
+                        return false;
                     return (lhs._index == rhs._index);}
 
                 /**
@@ -356,6 +366,8 @@ class my_deque {
                  * <your documentation>
                  */
                 friend bool operator == (const const_iterator& lhs, const const_iterator& rhs) {
+                    if (&lhs._outter != &rhs._outter)
+                        return false;
                     return lhs._index == rhs._index;}
 
                 /**
@@ -487,7 +499,7 @@ class my_deque {
                  * <your documentation>
                  */
                 const_iterator& operator += (difference_type i2) {
-                    _index+=i2;
+                    _index += i2;
                     assert(valid());
                     return *this;}
 
@@ -499,7 +511,7 @@ class my_deque {
                  * <your documentation>
                  */
                 const_iterator& operator -= (difference_type i2) {
-                    _index+=i2;
+                    _index -= i2;
                     assert(valid());
                     return *this;}};
 
@@ -514,25 +526,21 @@ class my_deque {
         explicit my_deque (const allocator_type& a = allocator_type()):_a(a) {
             const_reference v = value_type();
             difference_type s =0;
-            _top = _outter.allocate((s/AWIDTH + 1)*2);
-            _top_size = (s/AWIDTH + 1)*2;
+            _top = _outter.allocate(2);
+            _top_size = 2;
+            _top[0]=_a.allocate(AWIDTH);
             _top[1]=_a.allocate(AWIDTH);
             _b = 1;
+            _e = _b;
+
             //allocate all the needed inner arrays
-            int i = 0;
-            for (i=1; i<= s/AWIDTH; i++){
-                _top[i+1] = _a.allocate(AWIDTH);}
-            if (s%AWIDTH){
-                _e = i-1;}
-            else{
-                _e = i;}
             //set variables
-            _size=s;
+            _size=0;
             _offset=0;
 
             //do the fill stuff
-            uninitialized_fill(_a, begin(), end(), v);
-            assert(valid());
+            //uninitialized_fill(_a, begin(), end(), v);
+            //assert(valid());
             assert(valid());}
 
         /**
@@ -617,6 +625,15 @@ class my_deque {
          * <your documentation>
          */
         my_deque& operator = (const my_deque& rhs) {
+            clear();
+            while (_top_size < rhs._top_size){
+                grow_outter();
+            }
+            _offset = rhs._offset;
+            _size = rhs._size;
+            _b = rhs._b;
+            _e = rhs._e;
+            std::copy (rhs.begin(), rhs.end(), begin());
             assert(valid());
             return *this;}
 
@@ -749,6 +766,8 @@ class my_deque {
          * result: size()==
          */
         iterator erase (iterator iter) {
+            if (iter==end())
+                return iter;
             _a.destroy (&*iter);
             iterator cur = iter;
             iterator next = iter+1;
@@ -788,8 +807,16 @@ class my_deque {
          * <your documentation>
          * @ret iterator pointing to spot where inserted
          */
-        iterator insert (iterator iter, const_reference) {
-            // <your code>
+        iterator insert (iterator iter, const_reference val) {
+            resize(_size+1);
+            iterator source = ----end();
+            iterator dest = --end();
+            while (dest!= iter && source!=begin()){
+                *dest = *source;
+                --dest;
+                --source;}
+
+            *iter=val;
             assert(valid());
             return iter;}
 
@@ -801,14 +828,22 @@ class my_deque {
          * <your documentation>
          */
         void pop_back () {
-        	this->resize (_size-1);
+        	this->resize(_size-1);
             assert(valid());}
 
         /**
          * <your documentation>
          */
         void pop_front () {
-            // <your code>
+            if (_offset == AWIDTH-1){
+                _a.destroy(&*begin());
+                ++_b;
+                _offset=0;
+                --_size;}
+            else{
+                _a.destroy(&*begin());
+                ++_offset;
+                --_size;}
             assert(valid());}
 
         // ----
