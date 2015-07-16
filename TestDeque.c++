@@ -36,7 +36,7 @@ struct Deque_Fixture : Test {
     typedef typename deque_type::value_type value_type;};
 
 typedef Types<
-               //deque<int>,
+               deque<int>,
                 my_deque<int>
                >
         deque_types;
@@ -1681,6 +1681,7 @@ TYPED_TEST(Deque_Fixture, erase_test_1) {
     ASSERT_EQ(x.front(), 2);
 }
 
+/*
 TYPED_TEST(Deque_Fixture, erase_test_2) {
     typedef typename TestFixture::deque_type deque_type;
     deque_type x(50);
@@ -1690,6 +1691,7 @@ TYPED_TEST(Deque_Fixture, erase_test_2) {
     //should do nothing because not valid address
     ASSERT_EQ(x.back(), 0);
 }
+*/
 
 TYPED_TEST(Deque_Fixture, erase_test_3) {
     typedef typename TestFixture::deque_type deque_type;
@@ -2384,7 +2386,7 @@ TYPED_TEST(Deque_Fixture, erase_test_3) {
 
             ASSERT_FALSE(x < y);
         }
-/*
+
         TYPED_TEST(Deque_Fixture, deque_less_than_op_test_2) {
             typedef typename TestFixture::deque_type deque_type;
 
@@ -2409,7 +2411,7 @@ TYPED_TEST(Deque_Fixture, erase_test_3) {
             deque_type y(3); y[0] = 1; y[1] = 2; y[2] = 3;
             ASSERT_TRUE(x < y);
         }
-*/
+
 // -----
 // Tests
 // -----
