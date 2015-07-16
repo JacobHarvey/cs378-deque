@@ -1,0 +1,232 @@
+commit 00dcac25f68dd7beb24e09d92400c0ba1a954bd4
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Thu Jul 16 01:41:10 2015 -0500
+
+    fixed #18 fixed #19 fixed #16 fixed #14 fixed #13 fixed #12 fixed #8 fixed #7 fixed #5 fixed #4 finished everything important
+
+commit f16798701ba2345e23eaa4e6a7975e3fed6db85c
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Wed Jul 15 23:28:34 2015 -0500
+
+    passing some of baos tests
+
+commit 4de59eb84097f2e252dc43e324daf1f70b56854e
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Wed Jul 15 22:42:43 2015 -0500
+
+    finished erased, still havent tested this shit
+
+commit 674d84259cf2dddaf4f5ebbbd81788c8432b24f3
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Wed Jul 15 21:41:36 2015 -0500
+
+    swap is finished
+
+commit 653688e5435ded2842eac54cc7c800f56b03772f
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Wed Jul 15 21:25:03 2015 -0500
+
+    got push_front to work. tested and passed simple tests. psuh_back implemented, not tested yet
+
+commit 5d011ee3c5531441c11f492ecc5a4544f58af98b
+Merge: 6025207 9385982
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Wed Jul 15 18:54:57 2015 -0500
+
+    getting dev branhc set up
+
+commit 6025207594f68b2ed9eabe40ed74dbb91dca8a5f
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Wed Jul 15 18:51:01 2015 -0500
+
+    finished resize
+
+commit 827d1d181239ade932a6da6904263b66d83bcadf
+Author: = <=>
+Date:   Wed Jul 15 17:26:41 2015 -0500
+
+    added copy tests
+
+commit b44b232ef05bd9732a88cec7f84bd60c41cb8ece
+Author: = <=>
+Date:   Wed Jul 15 17:02:41 2015 -0500
+
+    comment out test
+
+commit 93859820610a518e35159721954cd40af366b7ea
+Author: = <=>
+Date:   Wed Jul 15 03:13:11 2015 -0500
+
+    branch and outfile
+
+commit 4916b4ac506096249b565ca2699e96dfb721a4b2
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Wed Jul 15 03:06:21 2015 -0500
+
+    finished basic resize, push_front
+
+commit 963d6f1e3e923399939d764c44bff485442d857f
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Wed Jul 15 02:07:55 2015 -0500
+
+    testing
+
+commit 5f584583af586c0db32c6607681ebc5616010c1f
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Wed Jul 15 02:05:23 2015 -0500
+
+    added more tests, started resize, finished grow_outter
+
+commit b40df79218e785fa634834b6c82d6cca7dcc6645
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Wed Jul 15 00:41:02 2015 -0500
+
+    allocating all inner arrays now
+
+commit 39166c738831662e8ff1af0b7fb6ee079e51aed9
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Wed Jul 15 00:38:58 2015 -0500
+
+    allocating all inner arrays now
+
+commit 842ed305c47bb0be4d764c4a429312d4bc7656dc
+Author: = <=>
+Date:   Tue Jul 14 22:19:59 2015 -0500
+
+    added doxyfile close #9
+
+commit fb6fe0f7fd34c274c4d37cb5c09c86c500f61831
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Tue Jul 14 22:04:31 2015 -0500
+
+    no memory leaks
+
+commit a005316730f3329765a8630a84a5ebb5343934e7
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Tue Jul 14 21:43:26 2015 -0500
+
+    fixed reference issue in []
+
+commit a1943f26963ec1cd0e52244385070aa0d5ef0665
+Merge: 5282d7c 267e39c
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Tue Jul 14 20:33:07 2015 -0500
+
+    Merge branch 'master' of https://github.com/JacobHarvey/cs378-deque
+
+commit 5282d7c45b2f223b80d7cf81ddc1afba900d7b0a
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Tue Jul 14 20:33:04 2015 -0500
+
+    cahnged
+
+commit 267e39c7dd10e40aaef9c32917dd46b0077e7e53
+Merge: cde3375 d07eb41
+Author: = <=>
+Date:   Tue Jul 14 20:32:24 2015 -0500
+
+    added tests
+
+commit cde3375a5c44e9add1e4bf2260508b111b3fe9b5
+Author: = <=>
+Date:   Tue Jul 14 19:52:36 2015 -0500
+
+    siddhesh edits
+
+commit d07eb41167688f37f64c678fb04dd6aa76d5c6bc
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Tue Jul 14 13:13:21 2015 -0500
+
+    changed
+
+commit 86d382441614ea708e05475439b11596ff867ca9
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Tue Jul 14 12:58:49 2015 -0500
+
+    did deconstructor
+
+commit 0280ab2640d0ae454ba38ac8fa34e6c4945b148b
+Author: = <=>
+Date:   Tue Jul 14 12:48:25 2015 -0500
+
+    added ++ test
+
+commit fde5cb93cab86ed9826292899c847744abde996e
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Tue Jul 14 12:32:22 2015 -0500
+
+     got some iterators to work
+
+commit 7a3a2317322765831659fc7811f8eb124a65b666
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Tue Jul 14 01:10:38 2015 -0500
+
+    got at to work
+
+commit d02ee391d331ed326f833eb3a04d89756945eadc
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Tue Jul 14 00:22:21 2015 -0500
+
+    finished a constructor
+
+commit 966237933035c2031b41ec8e56ea60327548ef1d
+Author: = <=>
+Date:   Thu Jul 9 21:32:33 2015 -0500
+
+    got rid of crap makefile
+
+commit 7591e9041ed3664b88e9a402540bb703d52c54d3
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Thu Jul 9 21:01:37 2015 -0500
+
+    fixed #3
+
+commit 016f3cfbf395d2bdf1fda499f1c08873dca8f7a8
+Author: = <=>
+Date:   Thu Jul 9 21:00:37 2015 -0500
+
+    gitignore update
+
+commit 8c885111ae99af1e64edeb01d212c3a1410d44d0
+Merge: 3027cb2 6de951d
+Author: = <=>
+Date:   Thu Jul 9 20:59:51 2015 -0500
+
+    Merge branch 'master' of https://github.com/JacobHarvey/cs378-deque
+
+commit 3027cb20d25f8dbd1b9c9c34dc863766fe6710f7
+Author: = <=>
+Date:   Thu Jul 9 20:58:19 2015 -0500
+
+    gitignore
+
+commit 6de951d12a03237a94625b57a39efd16e452d968
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Thu Jul 9 20:35:55 2015 -0500
+
+    test travis
+
+commit 06227c9ae13ce39f2e48d86e6b60d2c6dfe6e371
+Merge: 376cf99 00852eb
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Thu Jul 9 19:50:13 2015 -0500
+
+    Merge branch 'master' of https://github.com/JacobHarvey/cs378-deque
+
+commit 376cf99590f8bd814d1dfa7a1f64d830c60ec277
+Author: JacobHarvey <jacoblharvey@utexas.edu>
+Date:   Thu Jul 9 19:49:56 2015 -0500
+
+    initialized
+
+commit 00852eb859d4141059293e2d4a7751622e3f710c
+Author: = <=>
+Date:   Thu Jul 9 19:47:51 2015 -0500
+
+    added vector file
+
+commit 740cf990e32e30370d1c1aa45e5f37e31689115c
+Author: Jacob Harvey <jacoblharvey@utexas.edu>
+Date:   Thu Jul 9 19:43:04 2015 -0500
+
+    Create README.md
